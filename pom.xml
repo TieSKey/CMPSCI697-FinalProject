@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.deeplearning4j</groupId>
-    <artifactId>deeplearning4j-examples</artifactId>
-    <version>0.4-rc0-SNAPSHOT</version>
+    <groupId>edu.umass.cs.697</groupId>
+    <artifactId>final-project</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
-    <name>DeepLearning4j Examples</name>
-    <description>Examples of training different data sets</description>
+    <name>CMPSCI697-FinalProject</name>
+    <description></description>
     <properties>
         <nd4j.version>0.4-rc3.6</nd4j.version>
         <dl4j.version>	0.4-rc3.6 </dl4j.version>
@@ -75,6 +75,19 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>jp.seraph</groupId>
+            <artifactId>jsade-beta</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/jsade-beta-rev355/jp.seraph.jsade-beta.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
