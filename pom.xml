@@ -75,10 +75,18 @@
             <version>${jackson.version}</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>org.apache.commons</groupId>-->
+            <!--<artifactId>commons-math3</artifactId>-->
+            <!--<version>3.5</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>3.5</version>
+            <artifactId>commons-math</artifactId>
+            <version>1.2</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/libs/commons-math-1.2.jar</systemPath>
         </dependency>
 
         <dependency>
