@@ -47,7 +47,7 @@ import org.nd4j.linalg.lossfunctions.LossFunctions.LossFunction;
  */
 public class GravesLSTMCharModellingExample {
 	public static void main( String[] args ) throws Exception {
-		int lstmLayerSize = 200;					//Number of units in each GravesLSTM layer
+		int lstmLayerSize = 4;					//Number of units in each GravesLSTM layer
 		int miniBatchSize = 32;						//Size of mini batch to use when  training
 		int examplesPerEpoch = 50*miniBatchSize;	//i.e., how many examples to learn on between generating samples
 		int exampleLength = 100;					//Length of each training example
@@ -105,7 +105,7 @@ public class GravesLSTMCharModellingExample {
 		//Do training, and then generate and print samples from network
 		for( int i=0; i<numEpochs; i++ ){
 			net.fit(iter);
-			
+
 			System.out.println("--------------------");
 			System.out.println("Completed epoch " + i );
 			System.out.println("Sampling characters from network given initialization \""+ (generationInitialization == null ? "" : generationInitialization) +"\"");
