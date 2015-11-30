@@ -22,28 +22,26 @@ public class Network {
 
     int lstmLayerSize = 4;                          //Number of units in each GravesLSTM layer
 
-    int numEpochs = 30;                             //Total number of training + sample generation epochs
+    /**
+     * Number of times a DataSet is iterated over (training on the same data).
+     */
+    int numEpochs = 2;
     int nSamplesToGenerate = 4;                     //Number of samples to generate after each training epoch
     int nCharactersToSample = 300;                  //Length of each sample to generate
 
     MultiLayerNetwork net;
-    DataSetIterator iter;
 
     /**
      * Build a new network.
-     * @param iter The iterator with the training data.
+     *
+     * @param nIn  Number of inputs.
+     * @param nOut Number of outputs.
      */
-    public void build(DataSetIterator iter) {
-        this.iter = iter;
+    public void build(int nIn, int nOut) {
         String generationInitialization = null;        //Optional character initialization; a random character is used if null
         // Above is Used to 'prime' the LSTM with a character sequence to continue/complete.
         // Initialization characters must all be in CharacterIterator.getMinimalCharacterSet() by default
-        Random rng = new Random(12345);
 
-        //Get a DataSetIterator that handles vectorization of text into something we can use to train
-        // our GravesLSTM network.
-        //DataSetIterator iter = getShakespeareIterator(miniBatchSize, exampleLength, examplesPerEpoch);
-        int nOut = iter.totalOutcomes();
 
         //Set up network configuration:
         MultiLayerConfiguration conf = new NeuralNetConfiguration.Builder()
@@ -54,7 +52,7 @@ public class Network {
                 .regularization(true)
                 .l2(0.001)
                 .list(3)
-                .layer(0, new GravesLSTM.Builder().nIn(iter.inputColumns()).nOut(lstmLayerSize)
+                .layer(0, new GravesLSTM.Builder().nIn(nIn).nOut(lstmLayerSize)
                         .updater(Updater.RMSPROP)
                         .activation("tanh").weightInit(WeightInit.DISTRIBUTION)
                         .dist(new UniformDistribution(-0.08, 0.08)).build())
@@ -88,12 +86,13 @@ public class Network {
     /**
      * Load the network from some kind of file.
      */
-    public void load(){
+    public void load() {
 
     }
 
     /**
      * TODO Sample values from the network (get expected rewards)
+     *
      * @return
      */
     public float[] sample() {
@@ -117,7 +116,9 @@ public class Network {
     /**
      * Train the network.
      */
-    public void train() {
+    public void train(DataSetIterator iter) {
+        Random rng = new Random(12345);
+
         //Do training, and then generate and print samples from network
         for (int i = 0; i < numEpochs; i++) {
             net.fit(iter);
